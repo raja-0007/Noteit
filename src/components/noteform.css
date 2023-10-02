@@ -1,0 +1,217 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+.noteform{
+    width: 90%;
+    height: 37px;
+    margin-top: 5px;
+    padding: 0px 50px;
+    background-color: hsl(0, 0%, 0%,.7);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.noteformhead{
+    height: 100%;
+    background-color: hsl(4, 4%, 4%,.5);
+    border-radius: 10px;
+}
+.noteform h3{
+    color: white;
+    font-size: 2em;
+    margin-bottom: 0px;
+    cursor: default;
+    
+}
+.noteformbody{
+    height: 100%;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: black;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+.noteformbodydiv{
+    height: 100%;
+    width: 60px;
+    background-color: hsl(0, 0%, 0%,.5);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+/*.formform{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+form{
+   width: fit-content;
+   border: 1px solid hsl(0, 0%, 0%,.5);
+   border-radius: 25px;
+   overflow: hidden;
+   transition: all .3s;
+}
+form input{
+    height: 40px;
+    border: 0px;
+    
+    
+    padding-left: 20px;
+    outline: none;
+    background-color: none;
+    width: 300px;
+    
+}
+form:hover{
+    transform: scaleX(1.04);
+}
+
+.searchbtn{
+    width: 35px;
+    height: 35px;
+    background-color: hsl(0, 0%, 0%,.2);
+    color: hsl(0, 59%, 41%);
+    border: 0px;
+    border-radius: 18px;
+    margin: 2px 5px 2px 0px;
+    
+
+}*/
+
+.menu{
+    color: brown;
+    font-size: 1.5em;
+    
+    cursor: pointer;
+    transition: all .3s;
+}
+.menu:hover{
+    transform: scale(1.1);
+}
+.logoicon{
+    color: brown;
+}
+
+*{
+    padding: 0%;
+    margin: 0%;
+}
+.sidebarlayout{
+    width: 100%;
+
+    border: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100vh;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    background-color: hsl(0, 0%, 0%,.6);
+    
+    
+}
+.sidebarempty{
+    
+    border: 0;
+    padding: 10px;
+    overflow-x: hidden;
+    height: 100%;
+    position: fixed;
+
+    top: 0%;
+    left: 0%;
+}
+.sidebar{
+    width: 0;
+    border: 0;
+    padding: 10px;
+    
+    overflow-x: hidden;
+    height: 100%;
+    position: fixed;
+
+    top: 0%;
+    right: 0%;
+    background-color: hsl(0, 0%, 0%,.9);
+    transition: all .5s;
+    border-radius: 20px 0px 0px  20px;
+    
+
+}
+.sidebar2{
+   
+    border: 0;
+    padding: 10px;
+    
+    overflow-x: hidden;
+    height: 100%;
+    position: fixed;
+
+    top: 0%;
+    right: 0%;
+    background-color: hsl(0, 0%, 0%,.9);
+    transition: all .5s;
+    border-radius: 20px 0px 0px  20px;
+    
+
+}
+.sidebar_menu{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    justify-content: space-around;
+    
+    margin-top: 10px;
+    transition: all .7s;
+    
+}
+.sidebarhead{
+    height: max-content;
+    display: flex;
+    align-items: center;
+}
+
+.sidebarhead h3{
+    color: white;
+    width: 200px;
+    display: inline-block;
+    margin-right: 30%;
+    
+}
+.sidebarhead small{
+    color: hsl(0, 66%, 61%);
+}
+.menulink{
+    display: flex;
+    height: 40px;
+    font-size: 1.1em;
+    align-items: center;
+    padding: 0px 1% 0px 1%;
+    border-radius: 20px;
+    text-decoration: none;
+    color: hsl(0, 0%, 100%,.7);
+    transition: all .3s;
+}
+.link{
+    display: flex;
+    
+    transition: all .2s;
+    align-items: center;
+}
+.menulink:hover{
+    border-radius: 20px;
+    background-color: hsl(0, 0%, 100%,.95);
+    color: hsl(0, 59%, 41%);
+}
+.menulink:hover .link{
+    padding-left: 20px;
+}
+

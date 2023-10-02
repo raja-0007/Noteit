@@ -1,0 +1,135 @@
+.todoformlayout{
+    
+    display: flex;
+    height: max-content;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    padding:0px 40px 10px 40px;
+}
+.todoformlayout h4{
+    margin-bottom: 0%;
+    cursor: default;
+}
+.todoform{
+    width: fit-content;
+    border-radius: 5px;
+    border: 1px solid rgb(4, 231, 4);
+    overflow: hidden;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+}
+.todoform input{
+    
+    border: 1px solid black;
+    height: 30px;
+    padding-left: 15px;
+    border: 0px;
+    width: 400px;
+    outline: none;
+}
+.addtodobtn{
+    height: 30px;
+    width: 40px;
+    border: 0px;
+    background-color: rgb(4, 231, 4);
+    color: white;
+    font-size: 1.1em;
+}
+.todolist{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    height: 68vh;
+    
+    overflow-y: scroll;
+}
+.todolist::-webkit-scrollbar{
+    display: none;
+}
+.emptytodos{
+    font-size: 10em;
+    color: hsl(0, 0%, 0%,.3);
+}
+.todo{
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    background-color: hsl(0, 0%, 0%,.82);
+    color: white;
+    padding: 10px;
+    transition: all .3s;
+}
+.todo:hover{
+    background-color: hsl(0, 0%, 0%);
+    transform: scale(1.04);
+}
+.edittodoform{
+    width: 95%;
+    border-radius: 5px;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    overflow: hidden;
+    border: 1px solid rgb(4, 231, 4);
+    background-color: hsl(0, 0%, 100%,.2);
+}
+.edittodoform input{
+    width: 95%;
+    outline: none;
+    height: 30px;
+    border: 0px;
+    
+    padding-left: 10px;
+    background-color: hsl(0, 0%, 0%,0);
+    color: white;
+}
+
+.editbtn{
+    color: hsl(0, 0%, 100%,.7);
+    transition: all .3s;
+    cursor: pointer;
+
+}
+.editbtn:hover{
+    color: hsl(0, 0%, 100%,.95);
+    transform: scale(1.18);
+}
+.deltodo{
+    cursor: pointer;
+    color: red;
+    transition: all .3s;
+}
+.deltodo:hover{
+    transform: scale(1.18);
+}
+#editdone{
+    height: 30px;
+    width: 40px;
+    border: 0px;
+    border-radius: 0px 5px 5px 0px;
+    background-color: rgb(4, 231, 4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+@media screen and (max-width:999px) {
+    .todoform input{
+        width: 300px;
+    }
+}
+@media screen and (max-width:599px) {
+    .todoformlayout{
+        padding: 0px 10px 10px 10px;
+    }
+    .todoform input{
+        width: 220px;
+    }
+}
