@@ -80,6 +80,7 @@ function App() {
       .catch(err => console.log('error in updating archives after deletion'))
 
   }
+  //hello
   async function restore_note(noteid) {
     
     let newnote = {}
