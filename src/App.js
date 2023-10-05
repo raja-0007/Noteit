@@ -4,7 +4,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap'
 import './app.css'
 import $ from "jquery"
 import { useEffect, useState } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import Noteslist from './components/Noteslist'
 import Noteform from './components/Noteform'
 import Note from './components/Note';
@@ -19,21 +19,26 @@ import Archived from './components/Archived'
 import Trash from './components/Trash'
 import Editarchive from './components/Editarchive'
 import axios from 'axios'
+import Login from './components/Login'
 
 
 
 
 function App() {
 
-
+  
   const [notes, setNotes] = useState([])
   const [archived, setArchived] = useState([])
   const [trash, setTrash] = useState([])
   const [todos, setTodos] = useState([])
+  const [islogin,setIslogin] = useState('')
+  const [currentuser,setCurrentuser]=useState('')
+  
   useEffect(() => {
 
     let getdata = async () => {
-      await axios.get('http://localhost:777/api/notes')
+      try{
+        await axios.get('http://localhost:777/api/notes/'+currentuser)
         .then(response => setNotes(response.data))
         .catch(err => console.log('error in rendering notes'))
 
@@ -48,20 +53,25 @@ function App() {
       await axios.get('http://localhost:777/api/remainders')
         .then(response => setTodos(response.data))
         .catch(err => console.log('error in rendering remainders'))
+      }
+      catch(err){
+        console.log(err)
+      }
+      
     }
     getdata()
-
+    console.log('updater')
   }, [])
   function addnote(title, data, date, clr) {
     axios.post('http://localhost:777/api/notes', { action: 'addnote', title: title, content: data, date: date, bgcolor: clr, archive: false, trash: false })
       .then(res => setNotes([...notes, res.data]))
       .catch(err => console.log('errror in setting new note'))
-   
+
 
   }
 
   async function delete_note(noteid) {
-    
+
     await axios.post('http://localhost:777/api/trash', { id: noteid, action: 'delete' })
       .then(res => setTrash([...trash, res.data]))
       .catch(err => console.log('error in deletion'))
@@ -71,7 +81,7 @@ function App() {
 
   }
   async function delete_archive(noteid) {
-    
+
     await axios.post('http://localhost:777/api/trash', { id: noteid, action: 'delete_archive' })
       .then(res => setTrash([...trash, res.data]))
       .catch(err => console.log('error in arhchive deletion'))
@@ -82,7 +92,7 @@ function App() {
   }
   //hello
   async function restore_note(noteid) {
-    
+
     let newnote = {}
     await axios.post('http://localhost:777/api/trash', { id: noteid, action: 'restore' })
       .then(res => newnote = res.data)
@@ -101,13 +111,13 @@ function App() {
 
   }
   async function edit_note(noteid, edittitle, editcontent, editcolor) {
-    
+
     await axios.post('http://localhost:777/api/notes', { action: 'editnote', id: noteid, title: edittitle, content: editcontent, bgcolor: editcolor })
       .then(res => setNotes(notes.map(note => note._id === noteid ? (res.data) : (note))))
       .catch(err => console.log('errror in setting updating note'))
   }
   async function edit_archive(noteid, edittitle, editcontent, editcolor) {
-    
+
     await axios.post('http://localhost:777/api/archives', { id: noteid, action: 'editarchive', title: edittitle, content: editcontent, bgcolor: editcolor })
       .then(res => setArchived(archived.map(note => note._id === noteid ? (res.data) : (note))))
       .catch(err => console.log('error in edit archive'))
@@ -116,7 +126,7 @@ function App() {
 
   async function archive(noteid) {
 
-    
+
     await axios.post('http://localhost:777/api/archives', { id: noteid, action: 'archive' })
       .then(res => setArchived([...archived, res.data]))
       .catch(err => console.log('error in archive'))
@@ -126,7 +136,7 @@ function App() {
 
   }
   async function unarchive(noteid) {
-    
+
     await axios.post('http://localhost:777/api/archives', { id: noteid, action: 'unarchive' })
       .then(res => setNotes([...notes, res.data]))
       .catch(err => console.log('error in unarchive'))
@@ -138,7 +148,7 @@ function App() {
 
   async function addtodo(todo) {
 
-    
+
     axios.post('http://localhost:777/api/remainders', { action: 'addtodo', todo: todo, editing: false })
       .then(res => setTodos([...todos, res.data]))
       .catch(err => console.log('error in adding todo'))
@@ -149,10 +159,10 @@ function App() {
     axios.post('http://localhost:777/api/remainders', { action: 'deletetodo', id: todoid })
       .then(res => setTodos(res.data))
       .catch(err => console.log('error in adding todo'))
-    
+
   }
   function edit_todo(todoid) {
-   
+
     axios.post('http://localhost:777/api/remainders', { action: 'edittodo', id: todoid })
       .then(res => setTodos(res.data))
       .catch(err => console.log('error in altering editing value'))
@@ -161,9 +171,58 @@ function App() {
     axios.post('http://localhost:777/api/remainders', { action: 'saveedit', id: todoid, todo: task })
       .then(res => setTodos(res.data))
       .catch(err => console.log('error in altering editing value'))
+
+  }
+  let signingup = (uname, pword, repword) => {
+    axios.post('http://localhost:777/api/authentication', { action:'signup', username: uname, password: pword, repassword: repword })
+      .then(res => console.log(res))
+      .catch(err => console.log('error in signingup'))
+  }
+  
+  let loggingin = async(uname, pword) => {
+    await axios.post('http://localhost:777/api/authentication', { action:'login', username: uname, password: pword })
+      .then(res => setIslogin(res.data))
+      .catch(err => console.log('error in loggingin'))
+      
+      setCurrentuser(uname)
+      let getdata = async () => {
+        try{
+        await axios.get('http://localhost:777/api/notes/'+currentuser)
+          .then(response => setNotes(response.data))
+          .catch(err => console.log('error in rendering notes'))
+  
+        await axios.get('http://localhost:777/api/archives')
+          .then(response => setArchived(response.data))
+          .catch(err => console.log('error in rendering archives'))
+  
+        await axios.get('http://localhost:777/api/trash')
+          .then(response => setTrash(response.data))
+          .catch(err => console.log('error in rendering trash'))
+  
+        await axios.get('http://localhost:777/api/remainders')
+          .then(response => setTodos(response.data))
+          .catch(err => console.log('error in rendering remainders'))
+        }
+        catch(err){
+          console.log(err)
+        }
+        
+      }
+      getdata()
+       
+      
     
   }
-
+  let logouthandler=async()=>{
+    await axios.post('http://localhost:777/api/authentication', {action: 'logout'})
+    .then(res=>console.log('logout success'))
+    .catch(err=>console.log('cannot logout'))
+    setIslogin(false)
+    setNotes([])
+    setArchived([])
+    setTodos([])
+    setTrash([])
+  }
 
   return (
     <>
@@ -171,11 +230,12 @@ function App() {
       <BrowserRouter >
         <div className='container-fluid'>
           <div className='row sticky-top'>
-            <Noteform />
+            <Noteform logouthandler={logouthandler}/>
 
           </div>
           <Routes>
-            <Route path='/' element={
+            <Route path='/' element={<Login signingup={signingup} loggingin={loggingin} islogin={islogin}/> }></Route>
+            <Route path='/noteslist' element={
 
               <div className='row'>
 
@@ -185,7 +245,7 @@ function App() {
             <Route path='/archived' element={<Archived list={archived} delete_archive={delete_archive} unarchive={unarchive} />}></Route>
             <Route path='/trash' element={<Trash list={trash} restore_note={restore_note} />} ></Route>
             <Route path='/note' element={<Note addnote={addnote} />}></Route>
-            
+
             <Route path='/remainders' element={
               <div className='row'>
                 <Todoform addtodo={addtodo} />
@@ -198,6 +258,7 @@ function App() {
             <Route path='/editarchive' element={<Editarchive edit_archive={edit_archive} />} ></Route>
           </Routes>
         </div>
+        
       </BrowserRouter>
 
     </>

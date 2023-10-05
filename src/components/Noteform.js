@@ -3,7 +3,7 @@ import './noteform.css'
 import { Link } from 'react-router-dom'
 import $ from 'jquery'
 
-function Noteform() {
+function Noteform({logouthandler}) {
   
   useEffect(() => {
     $(document).ready(() => {
@@ -55,10 +55,11 @@ function Noteform() {
         <div className='col-lg-4 col-8 sidebar2' id='sidebar'>
           <div className='sidebarhead'><h3>NoteIt</h3> <small>- where ideas begin</small></div>
           <div className='sidebar_menu'>
-            <Link to={'/'} className='menulink'><span className='link'><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;My notes</span></Link>
+            <Link to={'/noteslist'} className='menulink'><span className='link'><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;My notes</span></Link>
             <Link to={'/remainders'} className='menulink'><span className='link'><i class="fa-regular fa-bell"></i>&nbsp;&nbsp;Remainders</span></Link>
             <Link to={'/archived'} className='menulink'><span className='link'><span class="material-symbols-outlined">archive</span>&nbsp;&nbsp;Archive</span></Link>
             <Link to={'/trash'} className='menulink'><span className='link'> <span class="material-symbols-outlined">delete</span>&nbsp;&nbsp;Trash</span></Link>
+            <Link to={'/'} onClick={logouthandler} className='menulink'><span className='link'> <span class="material-symbols-outlined">delete</span>&nbsp;&nbsp;Logout</span></Link>
           </div>
         </div>
         

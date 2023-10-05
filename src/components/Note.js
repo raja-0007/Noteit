@@ -120,13 +120,13 @@ function Note({ addnote }) {
   return (
     <div className='notelayout'>
       <div className='back'>
-        <Link to={'/'} ><i class="fa-solid fa-arrow-left-long back"></i></Link>
+        <Link to={'/noteslist'} ><i class="fa-solid fa-arrow-left-long back"></i></Link>
       </div>
 
       <div className='noteinputs' id='noteinputs'>
         <span className='inputspan'>
           <input type='text' id='title' placeholder='Note Title' value={title} onChange={changehandler}></input>
-          <Link to={'/'}><button className='donebtn' onClick={addingnotes}><label><i class="fa-solid fa-check"></i></label></button></Link>
+          <Link to={'/noteslist'}><button className='donebtn' onClick={addingnotes}><label><i class="fa-solid fa-check"></i></label></button></Link>
         </span>
 
         <textarea className='my-auto' cols={5} rows={5} placeholder="what's on your mind?" value={content} onChange={contenthandler}></textarea>
